@@ -11,3 +11,4 @@ pnpm-debug.log*
 assets/originals
 .playwright-cli
 tsconfig.tsbuildinfo
+.vercel
