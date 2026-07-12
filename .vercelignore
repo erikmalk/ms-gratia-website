@@ -1,0 +1,5 @@
+assets/originals
+.playwright-cli
+.next
+node_modules
+*.tsbuildinfo
