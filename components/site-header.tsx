@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useEffect, useState } from 'react';
 
+import { ThemeToggle } from '@/components/theme-toggle';
 import { navigation } from '@/lib/site-data';
 import { cn } from '@/lib/utils';
 
@@ -49,16 +50,19 @@ export function SiteHeader() {
           </ul>
         </nav>
 
-        <button
-          type="button"
-          className="mobile-toggle"
-          aria-expanded={open}
-          aria-controls="mobile-menu"
-          aria-label={open ? 'Close navigation menu' : 'Open navigation menu'}
-          onClick={() => setOpen((current) => !current)}
-        >
-          {open ? '×' : '☰'}
-        </button>
+        <div className="header-actions">
+          <ThemeToggle />
+          <button
+            type="button"
+            className="mobile-toggle"
+            aria-expanded={open}
+            aria-controls="mobile-menu"
+            aria-label={open ? 'Close navigation menu' : 'Open navigation menu'}
+            onClick={() => setOpen((current) => !current)}
+          >
+            {open ? '×' : '☰'}
+          </button>
+        </div>
       </div>
 
       {open ? (
