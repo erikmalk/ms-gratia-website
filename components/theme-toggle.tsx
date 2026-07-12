@@ -1,7 +1,7 @@
 'use client';
 
 import { Monitor, Moon, Sun } from 'lucide-react';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 
 type ThemePreference = 'system' | 'light' | 'dark';
 
@@ -10,9 +10,9 @@ const preferences: Array<{
   label: string;
   Icon: typeof Sun;
 }> = [
-  { value: 'system', label: 'Use system theme', Icon: Monitor },
-  { value: 'light', label: 'Use light theme', Icon: Sun },
-  { value: 'dark', label: 'Use dark theme', Icon: Moon },
+  { value: 'system', label: 'System theme', Icon: Monitor },
+  { value: 'light', label: 'Light theme', Icon: Sun },
+  { value: 'dark', label: 'Dark theme', Icon: Moon },
 ];
 
 function applyTheme(preference: ThemePreference) {
@@ -25,8 +25,6 @@ function applyTheme(preference: ThemePreference) {
 
 export function ThemeToggle() {
   const [preference, setPreference] = useState<ThemePreference>('system');
-  const [open, setOpen] = useState(false);
-  const menuRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const storedPreference = window.localStorage.getItem('theme-preference');
@@ -49,64 +47,26 @@ export function ThemeToggle() {
     return () => media.removeEventListener('change', syncSystemTheme);
   }, []);
 
-  useEffect(() => {
-    if (!open) return;
-
-    const closeMenu = (event: PointerEvent) => {
-      if (!menuRef.current?.contains(event.target as Node)) setOpen(false);
-    };
-    const closeOnEscape = (event: KeyboardEvent) => {
-      if (event.key === 'Escape') setOpen(false);
-    };
-
-    document.addEventListener('pointerdown', closeMenu);
-    document.addEventListener('keydown', closeOnEscape);
-    return () => {
-      document.removeEventListener('pointerdown', closeMenu);
-      document.removeEventListener('keydown', closeOnEscape);
-    };
-  }, [open]);
-
-  const current = preferences.find((item) => item.value === preference) ?? preferences[0];
+  const currentIndex = preferences.findIndex((item) => item.value === preference);
+  const current = preferences[currentIndex] ?? preferences[0];
+  const next = preferences[(currentIndex + 1) % preferences.length] ?? preferences[0];
   const CurrentIcon = current.Icon;
 
-  const selectPreference = (nextPreference: ThemePreference) => {
-    setPreference(nextPreference);
-    window.localStorage.setItem('theme-preference', nextPreference);
-    applyTheme(nextPreference);
-    setOpen(false);
+  const cycleTheme = () => {
+    setPreference(next.value);
+    window.localStorage.setItem('theme-preference', next.value);
+    applyTheme(next.value);
   };
 
   return (
-    <div className="theme-picker" ref={menuRef}>
-      <button
-        type="button"
-        className="theme-toggle"
-        aria-label={`Theme: ${current.label}`}
-        aria-haspopup="menu"
-        aria-expanded={open}
-        onClick={() => setOpen((currentOpen) => !currentOpen)}
-      >
-        <CurrentIcon aria-hidden="true" size={18} strokeWidth={1.8} />
-      </button>
-
-      {open ? (
-        <div className="theme-menu" role="menu" aria-label="Choose color theme">
-          {preferences.map(({ value, Icon }) => (
-            <button
-              key={value}
-              type="button"
-              className="theme-option"
-              role="menuitemradio"
-              aria-checked={preference === value}
-              onClick={() => selectPreference(value)}
-            >
-              <Icon aria-hidden="true" size={17} strokeWidth={1.8} />
-              <span>{value === 'system' ? 'System' : value === 'light' ? 'Light' : 'Dark'}</span>
-            </button>
-          ))}
-        </div>
-      ) : null}
-    </div>
+    <button
+      type="button"
+      className="theme-toggle"
+      aria-label={`${current.label}. Switch to ${next.label}.`}
+      title={`${current.label} · switch to ${next.label}`}
+      onClick={cycleTheme}
+    >
+      <CurrentIcon aria-hidden="true" size={18} strokeWidth={1.8} />
+    </button>
   );
 }

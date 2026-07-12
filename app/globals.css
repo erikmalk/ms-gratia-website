@@ -165,10 +165,6 @@ main {
   gap: 0.55rem;
 }
 
-.theme-picker {
-  position: relative;
-}
-
 .theme-toggle {
   display: inline-flex;
   align-items: center;
@@ -183,44 +179,9 @@ main {
   cursor: pointer;
 }
 
-.theme-toggle:hover,
-.theme-toggle[aria-expanded='true'] {
+.theme-toggle:hover {
   background: var(--interactive-hover);
   border-color: var(--line-strong);
-}
-
-.theme-menu {
-  position: absolute;
-  top: calc(100% + 0.6rem);
-  right: 0;
-  z-index: 60;
-  display: grid;
-  width: 9.5rem;
-  padding: 0.4rem;
-  border: 1px solid var(--line);
-  border-radius: 1rem;
-  background: var(--panel);
-  box-shadow: var(--shadow);
-}
-
-.theme-option {
-  display: flex;
-  align-items: center;
-  gap: 0.65rem;
-  width: 100%;
-  padding: 0.7rem 0.75rem;
-  border: 0;
-  border-radius: 0.7rem;
-  background: transparent;
-  color: var(--muted);
-  cursor: pointer;
-  text-align: left;
-}
-
-.theme-option:hover,
-.theme-option[aria-checked='true'] {
-  background: var(--interactive-hover);
-  color: var(--text);
 }
 
 .wordmark {
