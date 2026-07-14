@@ -350,8 +350,8 @@ export const site = {
   workInstagram: '@bymsgratia',
   workInstagramUrl: 'https://www.instagram.com/bymsgratia/',
   aboutCopy: [
-    "I'm a LA-based makeup and special effects artist, specializing in film and TV. I've had the privilege of working on numerous production projects and collaborating with a variety of special effects shops in Los Angeles.",
-    "I love collaborating with other creatives to bring ideas to life. Let's team up and make something amazing!",
+    "I'm a makeup and special effects artist working across beauty, editorial, film, and television. My practice brings together refined makeup artistry, character work, and prosthetics, shaped by hands-on production experience and a collaborative approach.",
+    "I'm focused on growing within fashion and beauty, expanding my creative range, and building lasting relationships with artists and production teams.",
   ],
   totalAssets: data.counts.unique_assets + creditMedia.length,
 };
