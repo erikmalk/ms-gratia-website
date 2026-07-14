@@ -13,7 +13,7 @@ export default function WorkPage() {
             {categories.map((category, index) => (
               <CategoryPreviewCard
                 key={category.slug}
-                href={`/${category.slug}` as '/beauty' | '/creative' | '/special-effects'}
+                href={`/${category.slug}` as `/${typeof category.slug}`}
                 title={category.title}
                 image={category.cover}
                 priority={index === 0}

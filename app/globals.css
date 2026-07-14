@@ -419,14 +419,14 @@ video {
   }
 
   .portfolio-image img {
-    width: min(100%, 1600px);
+    width: min(100%, 960px);
     height: auto;
     max-width: 100%;
     object-fit: contain;
   }
 
   .portfolio-image.is-tall img {
-    width: min(100%, 900px);
+    width: min(100%, 680px);
     max-height: none;
   }
 

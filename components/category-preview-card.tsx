@@ -4,7 +4,7 @@ import { MediaImage } from '@/components/media-image';
 import type { MediaItem } from '@/lib/site-data';
 
 type CategoryPreviewCardProps = {
-  href: '/beauty' | '/creative' | '/special-effects' | '/work';
+  href: '/celebrity' | '/beauty' | '/editorial' | '/advertising' | '/film' | '/sfx' | '/work';
   title: string;
   image: MediaItem;
   priority?: boolean;

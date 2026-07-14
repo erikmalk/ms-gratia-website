@@ -1,6 +1,6 @@
 import manifest from '@/assets/media-manifest.json';
 
-export type CategorySlug = 'beauty' | 'creative' | 'special-effects';
+export type CategorySlug = 'celebrity' | 'beauty' | 'editorial' | 'advertising' | 'film' | 'sfx';
 
 export type MediaItem = {
   id: string;
@@ -265,7 +265,70 @@ const instagramMedia: MediaItem[] = [
   },
 ];
 
-const mediaLookup = new Map([...allMedia, ...instagramMedia].map((item) => [item.filename, item]));
+const creditMedia: MediaItem[] = [
+  {
+    id: 'emancipation-credit-poster.webp',
+    src: '/media/emancipation-credit-poster.webp',
+    alt: 'Emancipation poster featuring Will Smith',
+    width: 1167,
+    height: 1486,
+    category: 'film',
+    type: 'image',
+    filename: 'emancipation-credit-poster.webp',
+  },
+  {
+    id: 'bride-credit-poster.webp',
+    src: '/media/bride-credit-poster.webp',
+    alt: 'The Bride poster featuring Jessie Buckley and Christian Bale',
+    width: 1080,
+    height: 1351,
+    category: 'film',
+    type: 'image',
+    filename: 'bride-credit-poster.webp',
+  },
+  {
+    id: 'digger-credit-poster.webp',
+    src: '/media/digger-credit-poster.webp',
+    alt: 'Digger poster featuring Tom Cruise',
+    width: 1095,
+    height: 1372,
+    category: 'film',
+    type: 'image',
+    filename: 'digger-credit-poster.webp',
+  },
+  {
+    id: 'ahsoka-credit-poster.webp',
+    src: '/media/ahsoka-credit-poster.webp',
+    alt: 'Star Wars Ahsoka poster',
+    width: 1156,
+    height: 1383,
+    category: 'film',
+    type: 'image',
+    filename: 'ahsoka-credit-poster.webp',
+  },
+  {
+    id: 'maestro-credit-poster.webp',
+    src: '/media/maestro-credit-poster.webp',
+    alt: 'Maestro poster featuring Carey Mulligan and Bradley Cooper',
+    width: 1126,
+    height: 1361,
+    category: 'film',
+    type: 'image',
+    filename: 'maestro-credit-poster.webp',
+  },
+  {
+    id: 'deadpool-wolverine-credit-still.webp',
+    src: '/media/deadpool-wolverine-credit-still.webp',
+    alt: 'Deadpool and Wolverine sitting together in a forest',
+    width: 1116,
+    height: 1124,
+    category: 'film',
+    type: 'image',
+    filename: 'deadpool-wolverine-credit-still.webp',
+  },
+];
+
+const mediaLookup = new Map([...allMedia, ...instagramMedia, ...creditMedia].map((item) => [item.filename, item]));
 
 const pickMedia = (filenames: string[]) =>
   filenames
@@ -277,7 +340,7 @@ export const site = {
   title: 'MS Gratia — Makeup & Special Effects Artist',
   description:
     'Editorial portfolio for LA-based makeup and special effects artist Gratia, featuring beauty, creative, film, television, and prosthetic work.',
-  url: process.env.NEXT_PUBLIC_SITE_URL ?? 'https://msgratia.com',
+  url: process.env.NEXT_PUBLIC_SITE_URL ?? 'https://msgratia.vercel.app',
   email: 'gratiamalk@gmail.com',
   phone: '323-633-7343',
   instagram: '@msgratia',
@@ -292,12 +355,32 @@ export const site = {
 };
 
 export const navigation = [
-  { href: '/beauty', label: 'Fashion' },
-  { href: '/creative', label: 'Film' },
-  { href: '/special-effects', label: 'Special Effects' },
+  { href: '/celebrity', label: 'Celebrity' },
+  { href: '/beauty', label: 'Beauty' },
+  { href: '/editorial', label: 'Editorial' },
+  { href: '/advertising', label: 'Advertising' },
+  { href: '/film', label: 'Film' },
+  { href: '/sfx', label: 'SFX' },
   { href: '/about', label: 'About' },
   { href: '/contact', label: 'Contact' },
 ] as const;
+
+const advertisingMedia = allMedia.filter(
+  (item) => (item.category === 'branding' || /campaign|brand|converse|quest|fleur|denim|nfl|retail|testimonial/.test(item.filename)) && item.type === 'image',
+);
+
+const filmMedia = pickMedia([
+  'emancipation-credit-poster.webp',
+  'bride-credit-poster.webp',
+  'digger-credit-poster.webp',
+  'ahsoka-credit-poster.webp',
+  'maestro-credit-poster.webp',
+  'deadpool-wolverine-credit-still.webp',
+  'DXPyEIeEtJ4.jpg',
+  'C07naKxvx4K.jpg',
+  'C-n0Qa-SXRP.jpg',
+  'CwTPz4Ev1K3.jpg',
+]);
 
 export const categories: Array<{
   slug: CategorySlug;
@@ -310,11 +393,21 @@ export const categories: Array<{
   items: MediaItem[];
 }> = [
   {
+    slug: 'celebrity',
+    title: 'Celebrity',
+    shortTitle: 'Celebrity',
+    eyebrow: 'Celebrity',
+    description: 'Camera-ready makeup for talent, appearances, and portraiture.',
+    cover: mediaLookup.get('DYOj0colFOD.jpg')!,
+    preview: pickMedia(['DYOj0colFOD.jpg', 'DXH-CXrEnwX.jpg', 'DXH9Mg4kuvC.jpg']),
+    items: pickMedia(['DYOj0colFOD.jpg', 'DXH-CXrEnwX.jpg', 'DXH9Mg4kuvC.jpg', 'DXH_8CZkjYp.jpg']),
+  },
+  {
     slug: 'beauty',
-    title: 'Fashion',
-    shortTitle: 'Fashion',
-    eyebrow: 'Fashion',
-    description: 'Beauty, editorial, and fashion makeup.',
+    title: 'Beauty',
+    shortTitle: 'Beauty',
+    eyebrow: 'Beauty',
+    description: 'Polished beauty makeup and refined portrait work.',
     cover: mediaLookup.get('DXH-CXrEnwX.jpg')!,
     preview: pickMedia(['DXH-CXrEnwX.jpg', 'DXH9Mg4kuvC.jpg', 'DXH_8CZkjYp.jpg']),
     items: pickMedia([
@@ -322,37 +415,46 @@ export const categories: Array<{
       'DXH9Mg4kuvC.jpg',
       'DXH_8CZkjYp.jpg',
       'DYOj0colFOD.jpg',
-      'DYOlf-plD-V.jpg',
-      'DYOiT1DFDJP.jpg',
-      'DaBe2Nokull.jpg',
-      'DaBhI8Ako2J.jpg',
+
       'Daf7F_OlJXi.jpg',
       'Daf_ep_FBPQ.jpg',
     ]),
   },
   {
-    slug: 'creative',
+    slug: 'editorial',
+    title: 'Editorial',
+    shortTitle: 'Editorial',
+    eyebrow: 'Editorial',
+    description: 'Fashion, performance, and concept-driven image making.',
+    cover: mediaLookup.get('DYOlf-plD-V.jpg')!,
+    preview: pickMedia(['DYOlf-plD-V.jpg', 'DYOiT1DFDJP.jpg', 'DXaGdxqkvmO.jpg']),
+    items: pickMedia(['DYOlf-plD-V.jpg', 'DYOiT1DFDJP.jpg', 'DXaGdxqkvmO.jpg', 'CvsvVR6S6Ul.jpg', 'Cvu57WxSshH.jpg']),
+  },
+  {
+    slug: 'advertising',
+    title: 'Advertising',
+    shortTitle: 'Advertising',
+    eyebrow: 'Advertising',
+    description: 'Commercial, campaign, and branded production work.',
+    cover: mediaLookup.get('meta-quest-two-still.webp')!,
+    preview: advertisingMedia.slice(0, 3),
+    items: advertisingMedia,
+  },
+  {
+    slug: 'film',
     title: 'Film',
     shortTitle: 'Film',
     eyebrow: 'Film',
     description: 'Film, television, and character work.',
-    cover: mediaLookup.get('DXPyEIeEtJ4.jpg')!,
-    preview: pickMedia(['DXPyEIeEtJ4.jpg', 'C07naKxvx4K.jpg', 'C-n0Qa-SXRP.jpg']),
-    items: pickMedia([
-      'DXPyEIeEtJ4.jpg',
-      'C07naKxvx4K.jpg',
-      'C-n0Qa-SXRP.jpg',
-      'CwTPz4Ev1K3.jpg',
-      'DXaGdxqkvmO.jpg',
-      'CvsvVR6S6Ul.jpg',
-      'Cvu57WxSshH.jpg',
-    ]),
+    cover: mediaLookup.get('emancipation-credit-poster.webp')!,
+    preview: filmMedia.slice(0, 3),
+    items: filmMedia,
   },
   {
-    slug: 'special-effects',
-    title: 'Special Effects',
-    shortTitle: 'Special Effects',
-    eyebrow: 'Special Effects',
+    slug: 'sfx',
+    title: 'SFX',
+    shortTitle: 'SFX',
+    eyebrow: 'SFX',
     description: 'Prosthetics, creatures, aging, and character transformation.',
     cover: mediaLookup.get('Ct1zCWXPw-Y.jpg')!,
     preview: pickMedia(['Ct1zCWXPw-Y.jpg', 'CzMVXdFvJ4j.jpg', 'DXPnnsemUz0.jpg']),
@@ -408,8 +510,33 @@ export const credits = [
   },
   {
     title: 'Emancipation',
-    role: 'Hair Technician / SFX Shop',
-    image: mediaLookup.get('emancipation-poster-design.webp'),
+    role: 'SFX Hair Artist',
+    image: mediaLookup.get('emancipation-credit-poster.webp'),
+  },
+  {
+    title: 'The Bride!',
+    role: 'SFX Hair Artist',
+    image: mediaLookup.get('bride-credit-poster.webp'),
+  },
+  {
+    title: 'Digger',
+    role: 'SFX Hair Artist',
+    image: mediaLookup.get('digger-credit-poster.webp'),
+  },
+  {
+    title: 'Star Wars: Ahsoka',
+    role: 'SFX Hair Artist',
+    image: mediaLookup.get('ahsoka-credit-poster.webp'),
+  },
+  {
+    title: 'Maestro',
+    role: 'SFX Hair Artist',
+    image: mediaLookup.get('maestro-credit-poster.webp'),
+  },
+  {
+    title: 'Deadpool & Wolverine',
+    role: 'SFX Hair Artist',
+    image: mediaLookup.get('deadpool-wolverine-credit-still.webp'),
   },
   {
     title: 'Lil Yachty — Say Something',
@@ -445,9 +572,12 @@ export const getCategory = (slug: CategorySlug) => categories.find((category) =>
 export const routeList = [
   '/',
   '/work',
+  '/celebrity',
   '/beauty',
-  '/creative',
-  '/special-effects',
+  '/editorial',
+  '/advertising',
+  '/film',
+  '/sfx',
   '/credits',
   '/resume',
   '/about',

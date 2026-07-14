@@ -5,7 +5,7 @@ import { Gallery } from '@/components/gallery';
 import { PageIntro } from '@/components/page-intro';
 import { getCategory, site } from '@/lib/site-data';
 
-const validSlugs = ['beauty', 'creative', 'special-effects'] as const;
+const validSlugs = ['celebrity', 'beauty', 'editorial', 'advertising', 'film', 'sfx'] as const;
 
 type CategoryParams = {
   slug: (typeof validSlugs)[number];
