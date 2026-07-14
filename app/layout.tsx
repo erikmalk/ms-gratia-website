@@ -5,6 +5,7 @@ import { Manrope } from 'next/font/google';
 
 import '@/app/globals.css';
 import '@/app/cms.css';
+import { HomeMenuReveal } from '@/components/home-menu-reveal';
 import { SiteFooter } from '@/components/site-footer';
 import { SiteHeader } from '@/components/site-header';
 import { site } from '@/lib/site-data';
@@ -66,6 +67,7 @@ export default async function RootLayout({ children }: Readonly<{ children: Reac
           </main>
           <SiteFooter />
         </div>
+        <HomeMenuReveal navigation={navigation} />
       </body>
     </html>
   );
