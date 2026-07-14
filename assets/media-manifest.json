@@ -1,20 +1,20 @@
 {
-  "generated_at": "2026-07-14T14:05:31",
+  "generated_at": "2026-07-14T14:13:17",
   "source_directory": "/Users/gratia/Downloads",
   "cutoff_iso": "2026-07-11T18:08:30",
   "max_image_long_edge": 2500,
   "target_image_bytes": 1000000,
   "counts": {
-    "source_files": 295,
-    "unique_assets": 271,
+    "source_files": 296,
+    "unique_assets": 272,
     "duplicate_sources": 24,
     "failures": 0,
     "by_media_type": {
-      "image": 294,
+      "image": 295,
       "video": 1
     },
     "by_category": {
-      "special-effects": 120,
+      "special-effects": 121,
       "beauty": 94,
       "creative": 64,
       "branding": 13,
@@ -4089,6 +4089,21 @@
       "derivative_width": 1463,
       "derivative_height": 2048,
       "derivative_bytes": 155068
+    },
+    {
+      "sha256": "8485544e9b4303d2dca6caf405bf2c1f4c3ffa091ebee5bc5805694ffcb6e171",
+      "master_filename": "aged-woman-outdoor-hair-reference.jpg",
+      "master_path": "assets/originals/aged-woman-outdoor-hair-reference.jpg",
+      "derivative_filename": "aged-woman-outdoor-hair-reference.webp",
+      "derivative_path": "public/media/aged-woman-outdoor-hair-reference.webp",
+      "media_type": "image",
+      "category": "special-effects",
+      "master_width": 1440,
+      "master_height": 1577,
+      "master_bytes": 799485,
+      "derivative_width": 1440,
+      "derivative_height": 1577,
+      "derivative_bytes": 495970
     }
   ],
   "sources": [
@@ -9131,6 +9146,23 @@
       "derivative_width": 1463,
       "derivative_height": 2048,
       "derivative_bytes": 155068
+    },
+    {
+      "original_download_name": "img_mt6gnhbg.jpg",
+      "original_download_path": "/Users/gratia/Library/Application Support/LocalHoist/user_images/cb833466-952a-46c3-8848-6b796754605e/original.jpg",
+      "sha256": "8485544e9b4303d2dca6caf405bf2c1f4c3ffa091ebee5bc5805694ffcb6e171",
+      "master_filename": "aged-woman-outdoor-hair-reference.jpg",
+      "master_path": "assets/originals/aged-woman-outdoor-hair-reference.jpg",
+      "derivative_filename": "aged-woman-outdoor-hair-reference.webp",
+      "derivative_path": "public/media/aged-woman-outdoor-hair-reference.webp",
+      "media_type": "image",
+      "category": "special-effects",
+      "master_width": 1440,
+      "master_height": 1577,
+      "master_bytes": 799485,
+      "derivative_width": 1440,
+      "derivative_height": 1577,
+      "derivative_bytes": 495970
     }
   ],
   "failures": [],
