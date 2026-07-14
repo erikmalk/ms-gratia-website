@@ -477,7 +477,8 @@ video {
   .site-footer {
     position: sticky;
     z-index: 3;
-    top: calc(100svh - var(--site-footer-height, 140px));
+    top: max(0px, calc(var(--site-viewport-height, 100svh) - var(--site-footer-height, 140px)));
+    padding-bottom: calc(2rem + env(safe-area-inset-bottom));
     background: #fff;
   }
 
@@ -485,14 +486,18 @@ video {
     position: relative;
     z-index: 1;
     display: block;
-    height: 100svh;
-    background: #111;
+    min-height: var(--site-viewport-height, 100svh);
+    padding-bottom: var(--site-footer-height, 140px);
+    background: #fff;
   }
 
   .site-menu-reveal-panel {
     display: grid;
     place-items: center;
-    min-height: calc(100svh - var(--site-footer-height, 140px));
+    min-height: max(
+      calc(var(--site-viewport-height, 100svh) - var(--site-footer-height, 140px)),
+      32rem
+    );
     padding: calc(2rem + env(safe-area-inset-top)) var(--gutter) 2rem;
     background: #111;
     color: #fff;

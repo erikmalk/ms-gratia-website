@@ -12,14 +12,34 @@ export function SiteFooter() {
     const footer = footerRef.current;
     if (!footer) return;
 
-    const updateHeight = () => {
-      document.documentElement.style.setProperty('--site-footer-height', `${footer.offsetHeight}px`);
-    };
-    const observer = new ResizeObserver(updateHeight);
+    const viewport = window.visualViewport;
+    let frame = 0;
 
-    updateHeight();
+    const updateLayoutMetrics = () => {
+      cancelAnimationFrame(frame);
+      frame = requestAnimationFrame(() => {
+        document.documentElement.style.setProperty('--site-footer-height', `${footer.getBoundingClientRect().height}px`);
+        document.documentElement.style.setProperty(
+          '--site-viewport-height',
+          `${viewport?.height ?? window.innerHeight}px`,
+        );
+      });
+    };
+    const observer = new ResizeObserver(updateLayoutMetrics);
+
+    updateLayoutMetrics();
     observer.observe(footer);
-    return () => observer.disconnect();
+    window.addEventListener('resize', updateLayoutMetrics);
+    viewport?.addEventListener('resize', updateLayoutMetrics);
+    viewport?.addEventListener('scroll', updateLayoutMetrics);
+
+    return () => {
+      cancelAnimationFrame(frame);
+      observer.disconnect();
+      window.removeEventListener('resize', updateLayoutMetrics);
+      viewport?.removeEventListener('resize', updateLayoutMetrics);
+      viewport?.removeEventListener('scroll', updateLayoutMetrics);
+    };
   }, []);
 
   return (
