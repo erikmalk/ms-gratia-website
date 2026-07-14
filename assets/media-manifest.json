@@ -1,22 +1,22 @@
 {
-  "generated_at": "2026-07-14T14:13:17",
+  "generated_at": "2026-07-14T14:29:38",
   "source_directory": "/Users/gratia/Downloads",
   "cutoff_iso": "2026-07-11T18:08:30",
   "max_image_long_edge": 2500,
   "target_image_bytes": 1000000,
   "counts": {
-    "source_files": 296,
-    "unique_assets": 272,
+    "source_files": 297,
+    "unique_assets": 273,
     "duplicate_sources": 24,
     "failures": 0,
     "by_media_type": {
-      "image": 295,
+      "image": 296,
       "video": 1
     },
     "by_category": {
       "special-effects": 121,
       "beauty": 94,
-      "creative": 64,
+      "creative": 65,
       "branding": 13,
       "video": 1,
       "about": 2,
@@ -4104,6 +4104,21 @@
       "derivative_width": 1440,
       "derivative_height": 1577,
       "derivative_bytes": 495970
+    },
+    {
+      "sha256": "413cc27583319b8df9e85f2d9519a847b7b1d45b04f835ad1644c274e07ac09e",
+      "master_filename": "met-gala-film-dress-full-length.jpg",
+      "master_path": "assets/originals/met-gala-film-dress-full-length.jpg",
+      "derivative_filename": "met-gala-film-dress-full-length.webp",
+      "derivative_path": "public/media/met-gala-film-dress-full-length.webp",
+      "media_type": "image",
+      "category": "creative",
+      "master_width": 1081,
+      "master_height": 1434,
+      "master_bytes": 382422,
+      "derivative_width": 1081,
+      "derivative_height": 1434,
+      "derivative_bytes": 174254
     }
   ],
   "sources": [
@@ -9163,6 +9178,23 @@
       "derivative_width": 1440,
       "derivative_height": 1577,
       "derivative_bytes": 495970
+    },
+    {
+      "original_download_name": "img_vg8mqm6n.jpg",
+      "original_download_path": "/Users/gratia/Library/Application Support/LocalHoist/user_images/1f29350a-4aa8-4956-b273-9153d8f3bbcf/original.jpg",
+      "sha256": "413cc27583319b8df9e85f2d9519a847b7b1d45b04f835ad1644c274e07ac09e",
+      "master_filename": "met-gala-film-dress-full-length.jpg",
+      "master_path": "assets/originals/met-gala-film-dress-full-length.jpg",
+      "derivative_filename": "met-gala-film-dress-full-length.webp",
+      "derivative_path": "public/media/met-gala-film-dress-full-length.webp",
+      "media_type": "image",
+      "category": "creative",
+      "master_width": 1081,
+      "master_height": 1434,
+      "master_bytes": 382422,
+      "derivative_width": 1081,
+      "derivative_height": 1434,
+      "derivative_bytes": 174254
     }
   ],
   "failures": [],
