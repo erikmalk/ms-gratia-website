@@ -128,6 +128,8 @@ export const seedAssignments: Record<CategorySlug, string[]> = {
   sfx: ['old-age-sculpt-profile.webp', 'stitched-smile-closeup.webp', 'artist-applying-bald-cap.webp', 'burned-hand-prosthetic.webp'],
 };
 
-if (catalogAssets.length !== 220) {
-  throw new Error(`Expected the complete 220-item catalog, found ${catalogAssets.length}.`);
+export const catalogAssetCount = catalogAssets.length;
+
+if (new Set(catalogAssets.map((asset) => asset.filename)).size !== catalogAssetCount) {
+  throw new Error('CMS catalog contains duplicate filenames.');
 }

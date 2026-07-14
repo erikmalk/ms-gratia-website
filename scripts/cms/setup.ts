@@ -2,7 +2,7 @@ import { readFile } from 'node:fs/promises';
 import path from 'node:path';
 import postgres from 'postgres';
 
-import { catalogAssets, categoryDetails, categorySlugs, seedAssignments } from '../../lib/cms/catalog';
+import { catalogAssetCount, catalogAssets, categoryDetails, categorySlugs, seedAssignments } from '../../lib/cms/catalog';
 
 const main = async () => {
   const databaseUrl = process.env.DATABASE_URL;
@@ -65,7 +65,9 @@ const main = async () => {
   });
 
   const [{ count }] = await sql<{ count: string }[]>`select count(*)::text as count from cms_assets`;
-  if (Number(count) !== 220) throw new Error(`Expected 220 CMS assets, found ${count}.`);
+  if (Number(count) !== catalogAssetCount) {
+    throw new Error(`Expected ${catalogAssetCount} CMS assets, found ${count}.`);
+  }
   console.log(`CMS database ready: ${count} assets across ${categorySlugs.length} categories.`);
   } finally {
     await sql.end();

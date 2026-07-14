@@ -2,14 +2,14 @@ import { revalidatePath } from 'next/cache';
 import { NextResponse } from 'next/server';
 import { z } from 'zod';
 import { hasCmsSession } from '@/lib/cms/auth';
-import { catalogAssets, categorySlugs } from '@/lib/cms/catalog';
+import { catalogAssetCount, catalogAssets, categorySlugs } from '@/lib/cms/catalog';
 import { getSql } from '@/lib/cms/db';
 import { enforceRateLimit } from '@/lib/cms/rate-limit';
 
 const categorySchema = z.enum(categorySlugs as [string, ...string[]]);
 const payloadSchema = z.object({
-  archived: z.array(z.string().min(1).max(180)).max(220),
-  categories: z.record(categorySchema, z.array(z.string().min(1).max(180)).max(220)),
+  archived: z.array(z.string().min(1).max(180)).max(catalogAssetCount),
+  categories: z.record(categorySchema, z.array(z.string().min(1).max(180)).max(catalogAssetCount)),
 });
 
 export async function POST(request: Request) {

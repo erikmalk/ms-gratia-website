@@ -8,7 +8,7 @@ Give one editor an unlisted interface for assigning every available media asset 
 
 ## Acceptance criteria
 
-- Catalog contains exactly 220 records: 214 deduplicated manifest assets (including one video) plus six newer credit images.
+- Catalog contains every deduplicated manifest asset (including the showreel video) plus the six manually curated credit images; its total is derived in code.
 - Selection view displays all non-archived records by default; “Show archived” recovers hidden records.
 - Thumbnail size slider changes grid density.
 - Every image shows Celebrity, Beauty, Editorial, Advertising, Film, and SFX checkboxes. Checked categories show their current 1-based sort value.
@@ -37,7 +37,7 @@ A high-entropy `CMS_ROUTE_SECRET` creates an unguessable route. Visiting it exch
 
 1. Provision a production Neon Postgres integration on the canonical Vercel project.
 2. Configure `DATABASE_URL`, `CMS_ROUTE_SECRET`, and `CMS_SESSION_SECRET` as server-only production secrets.
-3. Run `npm run cms:setup` against that Neon database and verify 220 records.
+3. Run `npm run cms:setup` against that Neon database and verify the reported total matches the derived catalog count.
 4. Deploy with `CMS_PUBLIC_READS=false` initially and validate the CMS catalog/edit persistence.
 5. Set `CMS_PUBLIC_READS=true`, redeploy, make a reversible ordering test, and confirm the public category changes.
 6. Verify canonical host remains `https://msgratia.vercel.app`.
@@ -45,7 +45,7 @@ A high-entropy `CMS_ROUTE_SECRET` creates an unguessable route. Visiting it exch
 ## Test matrix
 
 - Static gates: lint, strict typecheck, production build.
-- Catalog invariant: setup script returns 220; UI header says 220.
+- Catalog invariant: setup reports the catalog-derived total and the UI displays the same total.
 - Authentication: wrong slug 404; APIs without cookie 404; valid slug gets session.
 - Selection: assign/unassign changes sort values; archive hides; show archived restores.
 - Ordering: drag and arrow controls normalize positions; save and reload preserve order.

@@ -19,7 +19,7 @@ description: Maintain, test, and deploy the MS Gratia portfolio and its temporar
 
 - Next.js 15 App Router, React 19, strict TypeScript, npm lockfile.
 - Public media files are immutable committed derivatives under `public/media`.
-- `assets/media-manifest.json` contains 214 deduplicated masters/derivatives (213 images + one showreel video). Six newer credit images are manually added by `lib/cms/catalog.ts`. The CMS invariant is exactly **220 assets**.
+- `assets/media-manifest.json` is the source of truth for imported masters/derivatives (including one showreel video). Six credit images are manually added by `lib/cms/catalog.ts`; the CMS total is derived from the resulting catalog.
 - The public site has six categories: Celebrity, Beauty, Editorial, Advertising, Film, SFX.
 - `lib/site-data.ts` remains the safe committed fallback. When `CMS_PUBLIC_READS=true` and Neon is healthy, home/category/work ordering comes from Postgres.
 - CMS code is under `lib/cms`, `components/cms`, `app/api/cms`, and the secret branch of `app/[slug]/page.tsx`.
@@ -30,7 +30,7 @@ description: Maintain, test, and deploy the MS Gratia portfolio and its temporar
 - The URL is `/${CMS_ROUTE_SECRET}`. Never commit or print its value in docs/screenshots.
 - The route secret is exchanged for an eight-hour signed HttpOnly/SameSite=Strict session cookie. API reads/writes require that session and use DB-backed rate limits.
 - CMS pages are noindex/noarchive, excluded from sitemap, disallowed in robots, and use no-store/no-referrer headers.
-- The selection view displays all 220 assets, supports thumbnail sizing, six category checkboxes with visible order, soft archive, and recovery.
+- The selection view displays every catalog asset, supports thumbnail sizing, six category checkboxes with visible order, soft archive, and recovery.
 - The sort view supports drag/drop and accessible up/down controls. Save writes all category orders and archive state transactionally.
 - Runtime uploads are intentionally unsupported: Vercel's filesystem is immutable. Add new optimized files and manifest data in the repository, or adopt object storage as a separately specified feature.
 
@@ -48,7 +48,7 @@ description: Maintain, test, and deploy the MS Gratia portfolio and its temporar
 
 1. `git status --short`; inspect the canonical project/link.
 2. `npm ci` (or `npm install` only when intentionally changing dependencies).
-3. If schema/catalog changed: set a local `DATABASE_URL`, run `npm run cms:setup`, and confirm it reports 220 assets.
+3. If schema/catalog changed: set a local `DATABASE_URL`, run `npm run cms:setup`, and confirm its reported total matches the derived catalog count.
 4. Run `npm run lint && npm run typecheck && npm run build`.
 5. Browser-test the portfolio and CMS, including archive/restore and an ordering change; restore original state after the test.
 6. Deploy only to `local-hoist/ms-gratia-website`.

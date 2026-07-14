@@ -38,6 +38,6 @@ export function CmsEntry({ slug, authenticated }: { slug: string; authenticated:
   }, [ready, slug]);
 
   if (error) return <div className="cms-loading"><p>{error}</p></div>;
-  if (!ready || !assets) return <div className="cms-loading"><p>Loading all 220 media assets…</p></div>;
+  if (!ready || !assets) return <div className="cms-loading"><p>Loading all media assets…</p></div>;
   return <CmsEditor initialAssets={assets} />;
 }
