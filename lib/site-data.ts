@@ -353,7 +353,7 @@ export const site = {
     "I'm a LA-based makeup and special effects artist, specializing in film and TV. I've had the privilege of working on numerous production projects and collaborating with a variety of special effects shops in Los Angeles.",
     "I love collaborating with other creatives to bring ideas to life. Let's team up and make something amazing!",
   ],
-  totalAssets: data.counts.unique_assets,
+  totalAssets: data.counts.unique_assets + creditMedia.length,
 };
 
 export const navigation = [

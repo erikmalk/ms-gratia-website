@@ -3,6 +3,7 @@ import type { ReactNode } from 'react';
 import { Manrope } from 'next/font/google';
 
 import '@/app/globals.css';
+import '@/app/cms.css';
 import { SiteFooter } from '@/components/site-footer';
 import { SiteHeader } from '@/components/site-header';
 import { site } from '@/lib/site-data';
