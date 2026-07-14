@@ -197,6 +197,14 @@ video {
   background: #fff;
 }
 
+.about-media img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: auto;
+  object-fit: contain;
+}
+
 .portfolio-image img {
   width: 100%;
   height: auto;

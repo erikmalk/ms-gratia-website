@@ -52,6 +52,8 @@ const allMedia: MediaItem[] = data.assets.map((asset) => ({
   durationSeconds: asset.duration_seconds,
 }));
 
+/* Legacy Instagram references were removed because their source files were not included in the repository.
+   All displayed media below is resolved from committed local assets. */
 const instagramMedia: MediaItem[] = [
   {
     id: 'instagram-bymsgratia-DXH-CXrEnwX',
@@ -328,7 +330,7 @@ const creditMedia: MediaItem[] = [
   },
 ];
 
-const mediaLookup = new Map([...allMedia, ...instagramMedia, ...creditMedia].map((item) => [item.filename, item]));
+const mediaLookup = new Map([...allMedia, ...creditMedia].map((item) => [item.filename, item]));
 
 const pickMedia = (filenames: string[]) =>
   filenames
@@ -376,10 +378,10 @@ const filmMedia = pickMedia([
   'ahsoka-credit-poster.webp',
   'maestro-credit-poster.webp',
   'deadpool-wolverine-credit-still.webp',
-  'DXPyEIeEtJ4.jpg',
-  'C07naKxvx4K.jpg',
-  'C-n0Qa-SXRP.jpg',
-  'CwTPz4Ev1K3.jpg',
+  'guardians-three-poster.webp',
+  'dogtooth-poster-design.webp',
+  'dead-ringers-poster.webp',
+  'muse-compliance-title-card.webp',
 ]);
 
 export const categories: Array<{
@@ -398,9 +400,9 @@ export const categories: Array<{
     shortTitle: 'Celebrity',
     eyebrow: 'Celebrity',
     description: 'Camera-ready makeup for talent, appearances, and portraiture.',
-    cover: mediaLookup.get('DYOj0colFOD.jpg')!,
-    preview: pickMedia(['DYOj0colFOD.jpg', 'DXH-CXrEnwX.jpg', 'DXH9Mg4kuvC.jpg']),
-    items: pickMedia(['DYOj0colFOD.jpg', 'DXH-CXrEnwX.jpg', 'DXH9Mg4kuvC.jpg', 'DXH_8CZkjYp.jpg']),
+    cover: mediaLookup.get('marjorie-beauty-portrait.webp')!,
+    preview: pickMedia(['marjorie-beauty-portrait.webp', 'editorial-male-portrait.webp', 'coco-headshot-portrait.webp']),
+    items: pickMedia(['marjorie-beauty-portrait.webp', 'editorial-male-portrait.webp', 'coco-headshot-portrait.webp', 'jerome-male-portrait.webp']),
   },
   {
     slug: 'beauty',
@@ -408,16 +410,15 @@ export const categories: Array<{
     shortTitle: 'Beauty',
     eyebrow: 'Beauty',
     description: 'Polished beauty makeup and refined portrait work.',
-    cover: mediaLookup.get('DXH-CXrEnwX.jpg')!,
-    preview: pickMedia(['DXH-CXrEnwX.jpg', 'DXH9Mg4kuvC.jpg', 'DXH_8CZkjYp.jpg']),
+    cover: mediaLookup.get('blue-hand-beauty-portrait.webp')!,
+    preview: pickMedia(['blue-hand-beauty-portrait.webp', 'sheila-flower-beauty.webp', 'imats-neon-beauty.webp']),
     items: pickMedia([
-      'DXH-CXrEnwX.jpg',
-      'DXH9Mg4kuvC.jpg',
-      'DXH_8CZkjYp.jpg',
-      'DYOj0colFOD.jpg',
-
-      'Daf7F_OlJXi.jpg',
-      'Daf_ep_FBPQ.jpg',
+      'blue-hand-beauty-portrait.webp',
+      'sheila-flower-beauty.webp',
+      'imats-neon-beauty.webp',
+      'pink-eye-beauty.webp',
+      'teal-mohawk-beauty.webp',
+      'marjorie-beauty-portrait.webp',
     ]),
   },
   {
@@ -426,9 +427,9 @@ export const categories: Array<{
     shortTitle: 'Editorial',
     eyebrow: 'Editorial',
     description: 'Fashion, performance, and concept-driven image making.',
-    cover: mediaLookup.get('DYOlf-plD-V.jpg')!,
-    preview: pickMedia(['DYOlf-plD-V.jpg', 'DYOiT1DFDJP.jpg', 'DXaGdxqkvmO.jpg']),
-    items: pickMedia(['DYOlf-plD-V.jpg', 'DYOiT1DFDJP.jpg', 'DXaGdxqkvmO.jpg', 'CvsvVR6S6Ul.jpg', 'Cvu57WxSshH.jpg']),
+    cover: mediaLookup.get('painted-body-profile.webp')!,
+    preview: pickMedia(['painted-body-profile.webp', 'surya-creative-beauty.webp', 'woods-fantasy-portrait.webp']),
+    items: pickMedia(['painted-body-profile.webp', 'surya-creative-beauty.webp', 'woods-fantasy-portrait.webp', 'ice-queen-bodypaint.webp', 'gold-body-beauty.webp']),
   },
   {
     slug: 'advertising',
@@ -456,25 +457,25 @@ export const categories: Array<{
     shortTitle: 'SFX',
     eyebrow: 'SFX',
     description: 'Prosthetics, creatures, aging, and character transformation.',
-    cover: mediaLookup.get('Ct1zCWXPw-Y.jpg')!,
-    preview: pickMedia(['Ct1zCWXPw-Y.jpg', 'CzMVXdFvJ4j.jpg', 'DXPnnsemUz0.jpg']),
+    cover: mediaLookup.get('old-age-sculpt-profile.webp')!,
+    preview: pickMedia(['old-age-sculpt-profile.webp', 'stitched-smile-closeup.webp', 'artist-applying-bald-cap.webp']),
     items: pickMedia([
-      'Ct1zCWXPw-Y.jpg',
-      'CzMVXdFvJ4j.jpg',
-      'DXPnnsemUz0.jpg',
-      'DXaIFJrEq05.jpg',
+      'old-age-sculpt-profile.webp',
+      'stitched-smile-closeup.webp',
+      'artist-applying-bald-cap.webp',
+      'burned-hand-prosthetic.webp',
     ]),
   },
 ];
 
 export const featuredHomeMedia = pickMedia([
-  'DXH-CXrEnwX.jpg',
-  'DXH9Mg4kuvC.jpg',
-  'DXH_8CZkjYp.jpg',
-  'Ct1zCWXPw-Y.jpg',
-  'CzMVXdFvJ4j.jpg',
-  'DXPyEIeEtJ4.jpg',
-  'C07naKxvx4K.jpg',
+  'blue-hand-beauty-portrait.webp',
+  'sheila-flower-beauty.webp',
+  'painted-body-profile.webp',
+  'old-age-sculpt-profile.webp',
+  'surya-creative-beauty.webp',
+  'guardians-three-poster.webp',
+  'emancipation-credit-poster.webp',
 ]);
 
 export const heroVideo = mediaLookup.get('gratia-showreel-video.mp4')!;
