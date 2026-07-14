@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import type { ReactNode } from 'react';
+import React from 'react';
 import { Manrope } from 'next/font/google';
 
 import '@/app/globals.css';
@@ -7,6 +8,9 @@ import '@/app/cms.css';
 import { SiteFooter } from '@/components/site-footer';
 import { SiteHeader } from '@/components/site-header';
 import { site } from '@/lib/site-data';
+import { getPublicNavigation } from '@/lib/cms/repository';
+
+export const dynamic = 'force-dynamic';
 
 const sans = Manrope({
   subsets: ['latin'],
@@ -50,12 +54,13 @@ export const metadata: Metadata = {
   ],
 };
 
-export default function RootLayout({ children }: Readonly<{ children: ReactNode }>) {
+export default async function RootLayout({ children }: Readonly<{ children: ReactNode }>) {
+  const navigation = await getPublicNavigation();
   return (
     <html lang="en">
       <body className={sans.variable}>
         <div className="page-shell">
-          <SiteHeader />
+          <SiteHeader navigation={navigation} />
           <main id="main-content" className="page-main">
             {children}
           </main>

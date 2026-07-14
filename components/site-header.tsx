@@ -2,11 +2,11 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
-import { navigation } from '@/lib/site-data';
+import type { NavigationItem } from '@/lib/cms/repository';
 
-export function SiteHeader() {
+export function SiteHeader({ navigation }: { navigation: NavigationItem[] }) {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
   const [showWordmark, setShowWordmark] = useState(pathname !== '/');

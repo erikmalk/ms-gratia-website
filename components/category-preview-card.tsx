@@ -1,10 +1,11 @@
 import Link from 'next/link';
+import React from 'react';
 
 import { MediaImage } from '@/components/media-image';
 import type { MediaItem } from '@/lib/site-data';
 
 type CategoryPreviewCardProps = {
-  href: '/celebrity' | '/beauty' | '/editorial' | '/advertising' | '/film' | '/sfx' | '/work';
+  href: string;
   title: string;
   image: MediaItem;
   priority?: boolean;

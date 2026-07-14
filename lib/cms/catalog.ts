@@ -17,7 +17,7 @@ type ManifestFile = { assets: ManifestAsset[] };
 export type CmsAsset = MediaItem & {
   sha256: string | null;
   archived: boolean;
-  assignments: Partial<Record<CategorySlug, number>>;
+  assignments: Record<string, number | undefined>;
 };
 
 export const categorySlugs: CategorySlug[] = ['celebrity', 'beauty', 'editorial', 'advertising', 'film', 'sfx'];

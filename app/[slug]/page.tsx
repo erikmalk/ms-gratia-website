@@ -6,22 +6,14 @@ import { Gallery } from '@/components/gallery';
 import { PageIntro } from '@/components/page-intro';
 import { CmsEntry } from '@/components/cms/cms-entry';
 import { hasCmsSession, isCmsConfigured, isCmsRoute } from '@/lib/cms/auth';
-import { getPublicCategories } from '@/lib/cms/repository';
-import { categories, getCategory, site, type CategorySlug } from '@/lib/site-data';
+import { getPublicCategory } from '@/lib/cms/repository';
+import { site } from '@/lib/site-data';
 
 export const dynamic = 'force-dynamic';
-
-const validSlugs = ['celebrity', 'beauty', 'editorial', 'advertising', 'film', 'sfx'] as const;
 
 type CategoryParams = {
   slug: string;
 };
-
-const isCategorySlug = (slug: string): slug is CategorySlug => (validSlugs as readonly string[]).includes(slug);
-
-export function generateStaticParams(): CategoryParams[] {
-  return validSlugs.map((slug) => ({ slug }));
-}
 
 export async function generateMetadata({ params }: { params: Promise<CategoryParams> }): Promise<Metadata> {
   const { slug } = await params;
@@ -34,12 +26,8 @@ export async function generateMetadata({ params }: { params: Promise<CategoryPar
     };
   }
 
-  if (!isCategorySlug(slug)) {
-    return {};
-  }
-
-  const publicCategories = await getPublicCategories(categories);
-  const category = publicCategories.find((item) => item.slug === slug) ?? getCategory(slug);
+  const category = await getPublicCategory(slug);
+  if (!category) return {};
 
   return {
     title: category.title,
@@ -71,12 +59,8 @@ export default async function CategoryPage({ params }: { params: Promise<Categor
     return <CmsEntry slug={slug} authenticated={await hasCmsSession()} />;
   }
 
-  if (!isCategorySlug(slug)) {
-    notFound();
-  }
-
-  const publicCategories = await getPublicCategories(categories);
-  const category = publicCategories.find((item) => item.slug === slug) ?? getCategory(slug);
+  const category = await getPublicCategory(slug);
+  if (!category) notFound();
   return (
     <section className="portfolio-page">
       <PageIntro title={category.title} />

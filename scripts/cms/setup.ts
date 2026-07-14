@@ -11,8 +11,8 @@ const main = async () => {
   const sql = postgres(databaseUrl, { max: 1, prepare: false });
 
   try {
-  const migration = await readFile(path.join(process.cwd(), 'db/migrations/001_cms.sql'), 'utf8');
-  await sql.unsafe(migration);
+  const initialMigration = await readFile(path.join(process.cwd(), 'db/migrations/001_cms.sql'), 'utf8');
+  await sql.unsafe(initialMigration);
 
   await sql.begin(async (transaction) => {
     for (const asset of catalogAssets) {
@@ -39,20 +39,14 @@ const main = async () => {
 
     for (const [displayOrder, slug] of categorySlugs.entries()) {
       const detail = categoryDetails[slug];
-      await transaction`
+      const inserted = await transaction<{ slug: string }[]>`
         insert into cms_categories (slug, title, description, display_order, cover_filename)
         values (${slug}, ${detail.title}, ${detail.description}, ${displayOrder + 1}, ${detail.cover})
-        on conflict (slug) do update set
-          title = excluded.title,
-          description = excluded.description,
-          display_order = excluded.display_order,
-          updated_at = now()
+        on conflict (slug) do nothing
+        returning slug
       `;
 
-      const [{ count }] = await transaction<{ count: string }[]>`
-        select count(*)::text as count from cms_category_items where category_slug = ${slug}
-      `;
-      if (Number(count) === 0) {
+      if (inserted.length) {
         for (const [position, filename] of seedAssignments[slug].entries()) {
           await transaction`
             insert into cms_category_items (category_slug, asset_filename, position)
@@ -64,11 +58,15 @@ const main = async () => {
     }
   });
 
+  const dynamicCategoryMigration = await readFile(path.join(process.cwd(), 'db/migrations/002_dynamic_categories.sql'), 'utf8');
+  await sql.unsafe(dynamicCategoryMigration);
+
   const [{ count }] = await sql<{ count: string }[]>`select count(*)::text as count from cms_assets`;
   if (Number(count) !== catalogAssetCount) {
     throw new Error(`Expected ${catalogAssetCount} CMS assets, found ${count}.`);
   }
-  console.log(`CMS database ready: ${count} assets across ${categorySlugs.length} categories.`);
+  const [{ categoryCount }] = await sql<{ categoryCount: string }[]>`select count(*)::text as "categoryCount" from cms_categories`;
+  console.log(`CMS database ready: ${count} assets across ${categoryCount} categories.`);
   } finally {
     await sql.end();
   }

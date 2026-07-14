@@ -4,14 +4,14 @@ Status: implemented temporary utility
 
 ## Goal
 
-Give one editor an unlisted interface for assigning every available media asset to the six portfolio categories, controlling category-specific order, and soft-archiving/recovering assets. Persist edits in Neon Postgres and publish category ordering to the existing minimalist site.
+Give one editor an unlisted interface for assigning every available media asset to dynamic portfolio categories, controlling image and menu order, and soft-archiving/recovering assets and categories. Persist edits in Neon Postgres and publish the state to the existing minimalist site.
 
 ## Acceptance criteria
 
 - Catalog contains every deduplicated manifest asset (including the showreel video) plus the six manually curated credit images; its total is derived in code.
 - Selection view displays all non-archived records by default; “Show archived” recovers hidden records.
 - Thumbnail size slider changes grid density.
-- Every image shows Celebrity, Beauty, Editorial, Advertising, Film, and SFX checkboxes. Checked categories show their current 1-based sort value.
+- Every image shows all active category checkboxes. Checked categories show their current 1-based sort value.
 - The showreel video appears in the catalog but cannot be assigned to image galleries.
 - Archive is a soft delete. Archived assets disappear publicly but retain category/order metadata; restoring recovers their prior assignments.
 - Sort view chooses one category and supports pointer drag/drop plus keyboard-accessible up/down controls.
@@ -19,11 +19,14 @@ Give one editor an unlisted interface for assigning every available media asset 
 - Public category and work pages use DB ordering only when `CMS_PUBLIC_READS=true`; otherwise committed data remains a safe fallback.
 - Route and APIs are authenticated, no-store/noindex, same-origin for writes, and rate-limited.
 - CMS URL is not in navigation or sitemap and is disallowed in robots.
+- Category names are editable and ordinary categories can be added, ordered, archived, shown, and restored.
+- Empty and archived categories disappear publicly without deleting their image assignments.
+- The reserved Home category controls `/`, retains its image order, and never appears in navigation.
 
 ## Data model
 
 - `cms_assets`: filename primary key, public path, alt text, dimensions, source category/type/hash, nullable `archived_at`.
-- `cms_categories`: six fixed slugs, title/description/display order/cover filename.
+- `cms_categories`: stable URL slug, title/description/display order/cover filename, nullable `archived_at`, and `is_home` marker.
 - `cms_category_items`: many-to-many asset/category join with category-specific unique position.
 - `cms_rate_limits`: atomic fixed-window counters keyed by HMAC-hashed scope/IP.
 
@@ -55,4 +58,4 @@ A high-entropy `CMS_ROUTE_SECRET` creates an unguessable route. Visiting it exch
 
 ## Out of scope
 
-Uploads, hard deletion, copy/SEO editing, categories beyond the six fixed slugs, credit editing, multi-user access, roles, and permanent authentication.
+Uploads, hard deletion, category URL editing after creation, copy/SEO editing beyond category names, credit editing, multi-user access, roles, and permanent authentication.

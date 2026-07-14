@@ -573,12 +573,6 @@ export const getCategory = (slug: CategorySlug) => categories.find((category) =>
 export const routeList = [
   '/',
   '/work',
-  '/celebrity',
-  '/beauty',
-  '/editorial',
-  '/advertising',
-  '/film',
-  '/sfx',
   '/credits',
   '/resume',
   '/about',
