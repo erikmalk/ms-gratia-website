@@ -273,7 +273,7 @@ const creditMedia: MediaItem[] = [
     src: '/media/emancipation-credit-poster.webp',
     alt: 'Emancipation poster featuring Will Smith',
     width: 1167,
-    height: 1486,
+    height: 1463,
     category: 'film',
     type: 'image',
     filename: 'emancipation-credit-poster.webp',

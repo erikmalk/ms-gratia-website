@@ -56,7 +56,7 @@ export const categoryDetails: Record<CategorySlug, { title: string; description:
 };
 
 const creditAssets: Array<MediaItem & { sha256: null }> = [
-  ['emancipation-credit-poster.webp', 'Emancipation poster featuring Will Smith', 1167, 1486],
+  ['emancipation-credit-poster.webp', 'Emancipation poster featuring Will Smith', 1167, 1463],
   ['bride-credit-poster.webp', 'The Bride poster featuring Jessie Buckley and Christian Bale', 1080, 1351],
   ['digger-credit-poster.webp', 'Digger poster featuring Tom Cruise', 1095, 1372],
   ['ahsoka-credit-poster.webp', 'Star Wars Ahsoka poster', 1156, 1383],
