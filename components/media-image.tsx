@@ -7,9 +7,10 @@ type MediaImageProps = {
   priority?: boolean;
   sizes: string;
   className?: string;
+  draggable?: boolean;
 };
 
-export function MediaImage({ item, priority = false, sizes, className }: MediaImageProps) {
+export function MediaImage({ item, priority = false, sizes, className, draggable }: MediaImageProps) {
   return (
     <Image
       src={item.src}
@@ -19,6 +20,7 @@ export function MediaImage({ item, priority = false, sizes, className }: MediaIm
       sizes={sizes}
       priority={priority}
       className={className}
+      draggable={draggable}
     />
   );
 }

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Gallery } from '@/components/gallery';
+import { HomeCarousel } from '@/components/home-carousel';
 import { getHomeMedia } from '@/lib/cms/repository';
 
 export default async function HomePage() {
@@ -10,7 +10,7 @@ export default async function HomePage() {
       <div className="portfolio-heading">
         <h1>Gratia</h1>
       </div>
-      <Gallery items={homeMedia} />
+      <HomeCarousel items={homeMedia} />
     </section>
   );
 }
