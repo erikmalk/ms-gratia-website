@@ -370,7 +370,7 @@ video {
   border-top: 1px solid var(--line);
 }
 
-.home-menu-reveal {
+.site-menu-reveal {
   display: none;
 }
 
@@ -468,34 +468,39 @@ video {
 }
 
 @media (max-width: 759px) {
-  .page-shell {
+  .page-content {
     position: relative;
-    z-index: 1;
+    z-index: 2;
     background: #fff;
   }
 
-  .home-menu-reveal {
+  .site-footer {
+    position: sticky;
+    z-index: 3;
+    top: calc(100svh - var(--site-footer-height, 140px));
+    background: #fff;
+  }
+
+  .site-menu-reveal {
+    position: relative;
+    z-index: 1;
     display: block;
     height: 100svh;
     background: #111;
   }
 
-  .home-menu-reveal-panel {
-    position: fixed;
-    z-index: 0;
-    inset: 0;
+  .site-menu-reveal-panel {
     display: grid;
     place-items: center;
-    min-height: 100svh;
-    padding: calc(2rem + env(safe-area-inset-top)) var(--gutter)
-      calc(2rem + env(safe-area-inset-bottom));
+    min-height: calc(100svh - var(--site-footer-height, 140px));
+    padding: calc(2rem + env(safe-area-inset-top)) var(--gutter) 2rem;
     background: #111;
     color: #fff;
   }
 
-  .home-menu-reveal-list {
+  .site-menu-reveal-list {
     display: grid;
-    gap: clamp(1.25rem, 3.4vh, 2rem);
+    gap: clamp(1.1rem, 3vh, 1.75rem);
     width: 100%;
     margin: 0;
     padding: 0;
@@ -503,7 +508,7 @@ video {
     text-align: center;
   }
 
-  .home-menu-reveal-link {
+  .site-menu-reveal-link {
     display: inline-block;
     color: #fff;
     font-size: clamp(1rem, 5vw, 1.35rem);
@@ -513,12 +518,12 @@ video {
     text-transform: uppercase;
   }
 
-  .home-menu-reveal-link:hover,
-  .home-menu-reveal-link:focus-visible {
+  .site-menu-reveal-link:hover,
+  .site-menu-reveal-link:focus-visible {
     color: #fff;
   }
 
-  .home-menu-reveal-link:focus-visible {
+  .site-menu-reveal-link:focus-visible {
     outline: 2px solid #fff;
     outline-offset: 0.4rem;
   }

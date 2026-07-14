@@ -5,7 +5,7 @@ import { Manrope } from 'next/font/google';
 
 import '@/app/globals.css';
 import '@/app/cms.css';
-import { HomeMenuReveal } from '@/components/home-menu-reveal';
+import { SiteMenuReveal } from '@/components/site-menu-reveal';
 import { SiteFooter } from '@/components/site-footer';
 import { SiteHeader } from '@/components/site-header';
 import { site } from '@/lib/site-data';
@@ -61,13 +61,15 @@ export default async function RootLayout({ children }: Readonly<{ children: Reac
     <html lang="en">
       <body className={sans.variable}>
         <div className="page-shell">
-          <SiteHeader navigation={navigation} />
-          <main id="main-content" className="page-main">
-            {children}
-          </main>
+          <div className="page-content">
+            <SiteHeader navigation={navigation} />
+            <main id="main-content" className="page-main">
+              {children}
+            </main>
+          </div>
           <SiteFooter />
+          <SiteMenuReveal navigation={navigation} />
         </div>
-        <HomeMenuReveal navigation={navigation} />
       </body>
     </html>
   );
