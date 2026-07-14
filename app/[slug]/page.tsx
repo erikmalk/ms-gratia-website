@@ -54,21 +54,10 @@ export default async function CategoryPage({ params }: { params: Promise<Categor
   }
 
   const category = getCategory(slug);
-  const initialCount = category.slug === 'special-effects' ? 18 : 16;
-
   return (
-    <>
-      <PageIntro
-        eyebrow={category.eyebrow}
-        title={category.title}
-        description={category.description}
-        aside={<p className="muted-text">{category.items.length} images in the current edit.</p>}
-      />
-      <section className="section">
-        <div className="container">
-          <Gallery items={category.items} initialCount={initialCount} />
-        </div>
-      </section>
-    </>
+    <section className="portfolio-page">
+      <PageIntro title={category.title} />
+      <Gallery items={category.items} />
+    </section>
   );
 }

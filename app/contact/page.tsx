@@ -2,9 +2,8 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 
 import { ContactForm } from '@/components/contact-form';
-import { MediaImage } from '@/components/media-image';
 import { PageIntro } from '@/components/page-intro';
-import { contactImage, site } from '@/lib/site-data';
+import { site } from '@/lib/site-data';
 import { formatPhoneHref } from '@/lib/utils';
 
 export const metadata: Metadata = {
@@ -20,18 +19,11 @@ export default function ContactPage() {
 
   return (
     <>
-      <PageIntro
-        eyebrow="Contact"
-        title="Open for film, TV, editorial, music, and branded collaborations."
-        description="Reach out with project details, production timing, and creative goals. If form delivery is not configured, the site falls back gracefully to direct email."
-      />
+      <PageIntro title="Contact" />
       <section className="section">
         <div className="container contact-grid">
           <ContactForm canUseApi={canUseApi} />
-          <aside className="contact-card">
-            <div className="contact-media">
-              <MediaImage item={contactImage} priority sizes="(min-width: 700px) 50vw, 100vw" />
-            </div>
+          <aside className="contact-details">
             <div className="card-copy">
               <div>
                 <p className="card-kicker">Email</p>
@@ -47,9 +39,14 @@ export default function ContactPage() {
               </div>
               <div>
                 <p className="card-kicker">Instagram</p>
-                <Link href={site.instagramUrl} target="_blank" rel="noreferrer" className="title-md">
-                  {site.instagram}
-                </Link>
+                <div className="social-links">
+                  <Link href={site.instagramUrl} target="_blank" rel="noreferrer" className="title-md">
+                    {site.instagram}
+                  </Link>
+                  <Link href={site.workInstagramUrl} target="_blank" rel="noreferrer" className="title-md">
+                    {site.workInstagram}
+                  </Link>
+                </div>
               </div>
             </div>
           </aside>

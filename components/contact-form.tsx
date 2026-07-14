@@ -16,7 +16,7 @@ type Status =
 
 const initialStatus: Status = {
   type: 'idle',
-  message: 'Tell me a little about the project, timing, and scope.',
+  message: '',
 };
 
 export function ContactForm({ canUseApi }: ContactFormProps) {
@@ -108,14 +108,13 @@ export function ContactForm({ canUseApi }: ContactFormProps) {
             Email via mail app
           </a>
         )}
-        <p className="form-note">
-          {canUseApi ? 'Form delivery is enabled.' : 'Email delivery falls back to your default mail app when no server key is configured.'}
-        </p>
       </div>
 
-      <p className="form-status" data-state={status.type === 'idle' ? undefined : status.type}>
-        {status.message}
-      </p>
+      {status.message ? (
+        <p className="form-status" data-state={status.type === 'idle' ? undefined : status.type}>
+          {status.message}
+        </p>
+      ) : null}
     </form>
   );
 }

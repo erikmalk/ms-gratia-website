@@ -17,9 +17,8 @@ export default function AboutPage() {
   return (
     <>
       <PageIntro
-        eyebrow="About"
-        title="Artist, collaborator, and problem-solver on set."
-        description="A focused practice rooted in film and television, with an eye for character, finish, and collaboration."
+        title="Gratia Malkemus"
+        description="Makeup and special effects artist based in Los Angeles."
         aside={
           <div className="inline-links">
             <Link href="/contact" className="chip-link">

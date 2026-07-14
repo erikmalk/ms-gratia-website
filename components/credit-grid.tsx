@@ -22,7 +22,6 @@ export function CreditGrid({ items }: { items: readonly CreditItem[] }) {
             </div>
           ) : null}
           <div className="card-copy">
-            <p className="card-kicker">Selected credit</p>
             <h3 className="title-md">{item.title}</h3>
             <p className="body-copy">{item.role}</p>
           </div>

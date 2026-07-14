@@ -16,10 +16,8 @@ export default function CreditsPage() {
   return (
     <>
       <PageIntro
-        eyebrow="Credits / Resume"
-        title="Known public-site credits."
-        description="A concise production résumé spanning feature film, television, music, and branded work, with matching archive imagery used where filenames clearly align."
-        aside={<p className="muted-text">Additional résumé details can be shared directly upon request.</p>}
+        title="Selected credits"
+        description="Film, television, music, and commercial work."
       />
       <section className="section">
         <div className="container">

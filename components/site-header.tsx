@@ -4,16 +4,31 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useEffect, useState } from 'react';
 
-import { ThemeToggle } from '@/components/theme-toggle';
 import { navigation } from '@/lib/site-data';
-import { cn } from '@/lib/utils';
 
 export function SiteHeader() {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
+  const [showWordmark, setShowWordmark] = useState(pathname !== '/');
 
   useEffect(() => {
     setOpen(false);
+    setShowWordmark(pathname !== '/');
+  }, [pathname]);
+
+  useEffect(() => {
+    if (pathname !== '/') return;
+
+    const title = document.querySelector('.home-portfolio .portfolio-heading h1');
+    if (!title) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => setShowWordmark(!entry.isIntersecting),
+      { rootMargin: '-48px 0px 0px' },
+    );
+
+    observer.observe(title);
+    return () => observer.disconnect();
   }, [pathname]);
 
   useEffect(() => {
@@ -30,15 +45,21 @@ export function SiteHeader() {
   return (
     <header className="site-header">
       <div className="container header-inner">
-        <Link href="/" className="wordmark" aria-label="MS Gratia home">
-          <span className="wordmark-title">MS Gratia</span>
-          <span className="wordmark-subtitle">Makeup + SFX Artist</span>
+        <Link
+          href="/"
+          className="wordmark"
+          data-visible={showWordmark ? 'true' : 'false'}
+          aria-label="Gratia home"
+          aria-hidden={!showWordmark}
+          tabIndex={showWordmark ? undefined : -1}
+        >
+          Gratia
         </Link>
 
         <nav className="desktop-nav" aria-label="Primary">
           <ul className="nav-list">
             {navigation.map((item) => {
-              const active = pathname === item.href || (item.href !== '/' && pathname.startsWith(item.href));
+              const active = pathname === item.href || pathname.startsWith(`${item.href}/`);
               return (
                 <li key={item.href}>
                   <Link className="nav-link" href={item.href} aria-current={active ? 'page' : undefined}>
@@ -50,19 +71,15 @@ export function SiteHeader() {
           </ul>
         </nav>
 
-        <div className="header-actions">
-          <ThemeToggle />
-          <button
-            type="button"
-            className="mobile-toggle"
-            aria-expanded={open}
-            aria-controls="mobile-menu"
-            aria-label={open ? 'Close navigation menu' : 'Open navigation menu'}
-            onClick={() => setOpen((current) => !current)}
-          >
-            {open ? '×' : '☰'}
-          </button>
-        </div>
+        <button
+          type="button"
+          className="mobile-toggle"
+          aria-expanded={open}
+          aria-controls="mobile-menu"
+          onClick={() => setOpen((current) => !current)}
+        >
+          {open ? 'Close' : 'Menu'}
+        </button>
       </div>
 
       {open ? (
@@ -70,11 +87,11 @@ export function SiteHeader() {
           <div className="container">
             <ul className="mobile-list">
               {navigation.map((item) => {
-                const active = pathname === item.href || (item.href !== '/' && pathname.startsWith(item.href));
+                const active = pathname === item.href || pathname.startsWith(`${item.href}/`);
                 return (
                   <li key={item.href}>
                     <Link
-                      className={cn('mobile-link')}
+                      className="mobile-link"
                       href={item.href}
                       aria-current={active ? 'page' : undefined}
                     >
