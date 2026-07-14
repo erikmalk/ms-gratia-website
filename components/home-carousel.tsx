@@ -6,7 +6,7 @@ import React, { useCallback, useEffect, useLayoutEffect, useRef, useState } from
 import { MediaImage } from '@/components/media-image';
 import type { MediaItem } from '@/lib/site-data';
 
-const SLIDE_DURATION_MS = 4000;
+const SLIDE_DURATION_MS = 2000;
 const SWIPE_DISTANCE_PX = 45;
 const HOLD_THRESHOLD_MS = 500;
 
