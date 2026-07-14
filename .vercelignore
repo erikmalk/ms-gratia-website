@@ -1,4 +1,5 @@
 assets/originals
+archive
 .playwright-cli
 .next
 node_modules

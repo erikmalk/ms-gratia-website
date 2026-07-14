@@ -4,14 +4,11 @@ import React from 'react';
 import { Manrope } from 'next/font/google';
 
 import '@/app/globals.css';
-import '@/app/cms.css';
 import { SiteMenuReveal } from '@/components/site-menu-reveal';
 import { SiteFooter } from '@/components/site-footer';
 import { SiteHeader } from '@/components/site-header';
 import { site } from '@/lib/site-data';
-import { getPublicNavigation } from '@/lib/cms/repository';
-
-export const dynamic = 'force-dynamic';
+import { navigation } from '@/lib/portfolio';
 
 const sans = Manrope({
   subsets: ['latin'],
@@ -55,8 +52,7 @@ export const metadata: Metadata = {
   ],
 };
 
-export default async function RootLayout({ children }: Readonly<{ children: ReactNode }>) {
-  const navigation = await getPublicNavigation();
+export default function RootLayout({ children }: Readonly<{ children: ReactNode }>) {
   return (
     <html lang="en">
       <body className={sans.variable}>

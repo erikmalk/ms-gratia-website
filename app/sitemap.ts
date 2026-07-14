@@ -1,13 +1,10 @@
 import type { MetadataRoute } from 'next';
 
 import { routeList, site } from '@/lib/site-data';
-import { getPublicCategories } from '@/lib/cms/repository';
+import { portfolioCategories } from '@/lib/portfolio';
 
-export const dynamic = 'force-dynamic';
-
-export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const categories = await getPublicCategories();
-  const routes = [...routeList, ...categories.map((category) => `/${category.slug}`)];
+export default function sitemap(): MetadataRoute.Sitemap {
+  const routes = [...routeList, ...portfolioCategories.map((category) => `/${category.slug}`)];
   return routes.map((route) => ({
     url: `${site.url}${route === '/' ? '' : route}`,
     lastModified: new Date(),

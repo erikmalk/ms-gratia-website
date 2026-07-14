@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import React, { useEffect, useState } from 'react';
 
-import type { NavigationItem } from '@/lib/cms/repository';
+import type { NavigationItem } from '@/lib/portfolio';
 
 export function SiteHeader({ navigation }: { navigation: NavigationItem[] }) {
   const pathname = usePathname();

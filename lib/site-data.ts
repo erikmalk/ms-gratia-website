@@ -332,6 +332,8 @@ const creditMedia: MediaItem[] = [
 
 const mediaLookup = new Map([...allMedia, ...creditMedia].map((item) => [item.filename, item]));
 
+export const mediaByFilename = (filename: string) => mediaLookup.get(filename);
+
 const pickMedia = (filenames: string[]) =>
   filenames
     .map((filename) => mediaLookup.get(filename))
