@@ -1,22 +1,22 @@
 {
-  "generated_at": "2026-07-14T14:35:24",
+  "generated_at": "2026-07-14T14:39:22",
   "source_directory": "/Users/gratia/Downloads",
   "cutoff_iso": "2026-07-11T18:08:30",
   "max_image_long_edge": 2500,
   "target_image_bytes": 1000000,
   "counts": {
-    "source_files": 298,
+    "source_files": 299,
     "unique_assets": 273,
-    "duplicate_sources": 25,
+    "duplicate_sources": 26,
     "failures": 0,
     "by_media_type": {
-      "image": 297,
+      "image": 298,
       "video": 1
     },
     "by_category": {
       "special-effects": 121,
       "beauty": 94,
-      "creative": 66,
+      "creative": 67,
       "branding": 13,
       "video": 1,
       "about": 2,
@@ -9199,6 +9199,24 @@
     {
       "original_download_name": "img_7uuemu8g.jpg",
       "original_download_path": "/Users/gratia/Library/Application Support/LocalHoist/user_images/4bb3ba90-ee9a-4cdd-b002-5427346f80c8/original.jpg",
+      "sha256": "413cc27583319b8df9e85f2d9519a847b7b1d45b04f835ad1644c274e07ac09e",
+      "duplicate_of_master": "met-gala-film-dress-full-length.jpg",
+      "master_filename": "met-gala-film-dress-full-length.jpg",
+      "master_path": "assets/originals/met-gala-film-dress-full-length.jpg",
+      "derivative_filename": "met-gala-film-dress-full-length.webp",
+      "derivative_path": "public/media/met-gala-film-dress-full-length.webp",
+      "media_type": "image",
+      "category": "creative",
+      "master_width": 1081,
+      "master_height": 1434,
+      "master_bytes": 382422,
+      "derivative_width": 1081,
+      "derivative_height": 1434,
+      "derivative_bytes": 174254
+    },
+    {
+      "original_download_name": "img_xbrs7z6z.jpg",
+      "original_download_path": "/Users/gratia/Library/Application Support/LocalHoist/user_images/e91491fb-17b6-4e20-bfb4-52f71d6c1439/original.jpg",
       "sha256": "413cc27583319b8df9e85f2d9519a847b7b1d45b04f835ad1644c274e07ac09e",
       "duplicate_of_master": "met-gala-film-dress-full-length.jpg",
       "master_filename": "met-gala-film-dress-full-length.jpg",
