@@ -1,4 +1,6 @@
 assets/originals
+.env
+.env.*
 archive
 .playwright-cli
 .next

@@ -1,6 +1,5 @@
 'use client';
 
-import { RotateCcw } from 'lucide-react';
 import React, { useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react';
 
 import { MediaImage } from '@/components/media-image';
@@ -22,7 +21,7 @@ export function HomeCarousel({ items }: { items: MediaItem[] }) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isHolding, setIsHolding] = useState(false);
   const [hasCompleted, setHasCompleted] = useState(false);
-  const [replayInset, setReplayInset] = useState({ right: 12, bottom: 12 });
+  const [mediaInset, setMediaInset] = useState({ left: 12, right: 12, bottom: 12 });
   const pointerStart = useRef<PointerStart | null>(null);
   const viewportRef = useRef<HTMLDivElement | null>(null);
 
@@ -49,7 +48,6 @@ export function HomeCarousel({ items }: { items: MediaItem[] }) {
   }, [currentIndex, goNext, hasCompleted, isHolding, items.length]);
 
   useLayoutEffect(() => {
-    if (!hasCompleted) return;
     const viewport = viewportRef.current;
     const image = viewport?.querySelector<HTMLElement>(".home-carousel-slide[data-active='true'] img");
     if (!viewport || !image) return;
@@ -58,11 +56,16 @@ export function HomeCarousel({ items }: { items: MediaItem[] }) {
       const viewportBounds = viewport.getBoundingClientRect();
       const imageBounds = image.getBoundingClientRect();
       const nextInset = {
+        left: Math.max(10, imageBounds.left - viewportBounds.left + 10),
         right: Math.max(10, viewportBounds.right - imageBounds.right + 10),
         bottom: Math.max(10, viewportBounds.bottom - imageBounds.bottom + 10),
       };
-      setReplayInset((current) => (
-        current.right === nextInset.right && current.bottom === nextInset.bottom ? current : nextInset
+      setMediaInset((current) => (
+        current.left === nextInset.left
+          && current.right === nextInset.right
+          && current.bottom === nextInset.bottom
+          ? current
+          : nextInset
       ));
     };
 
@@ -75,16 +78,12 @@ export function HomeCarousel({ items }: { items: MediaItem[] }) {
       observer.disconnect();
       image.removeEventListener('load', updateInset);
     };
-  }, [currentIndex, hasCompleted]);
+  }, [currentIndex]);
 
   if (!items.length) return null;
 
+  const currentItem = items[currentIndex];
   const goTo = (index: number) => setCurrentIndex(index);
-  const replay = () => {
-    setCurrentIndex(0);
-    setHasCompleted(false);
-  };
-
   const handlePointerDown = (event: React.PointerEvent<HTMLDivElement>) => {
     if (!event.isPrimary || event.button !== 0) return;
     pointerStart.current = {
@@ -182,23 +181,26 @@ export function HomeCarousel({ items }: { items: MediaItem[] }) {
               priority={index < 2}
               sizes="(min-width: 760px) min(100vw - 80px, 1280px), calc(100vw - 32px)"
               draggable={false}
+              showCaption={false}
             />
           </figure>
         ))}
 
-        {hasCompleted ? (
-          <button
-            type="button"
-            className="home-carousel-replay"
-            aria-label="Play carousel again"
-            title="Play again"
-            style={{ right: replayInset.right, bottom: replayInset.bottom }}
-            onPointerDown={(event) => event.stopPropagation()}
-            onClick={replay}
+        {currentItem.caption ? (
+          <span
+            className="media-caption home-carousel-caption"
+            data-position={currentItem.captionPosition ?? 'bottom-right'}
+            style={{
+              bottom: mediaInset.bottom,
+              color: currentItem.captionColor ?? '#ffffff',
+              left: currentItem.captionPosition === 'bottom-left' ? mediaInset.left : undefined,
+              right: currentItem.captionPosition !== 'bottom-left' ? mediaInset.right : undefined,
+            }}
           >
-            <RotateCcw aria-hidden="true" size={18} strokeWidth={1.7} />
-          </button>
+            {currentItem.caption}
+          </span>
         ) : null}
+
       </div>
 
       {items.length > 1 ? (

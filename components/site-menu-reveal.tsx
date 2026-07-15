@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import React from 'react';
 
-import type { NavigationItem } from '@/lib/portfolio';
+import type { NavigationItem } from '@/lib/cms/repository';
 
 const STATIC_PUBLIC_PATHS = new Set(['/', '/about', '/contact', '/credits', '/work', '/resume']);
 

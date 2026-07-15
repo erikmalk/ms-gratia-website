@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import React from 'react';
 
 import type { MediaItem } from '@/lib/site-data';
 
@@ -8,10 +9,11 @@ type MediaImageProps = {
   sizes: string;
   className?: string;
   draggable?: boolean;
+  showCaption?: boolean;
 };
 
-export function MediaImage({ item, priority = false, sizes, className, draggable }: MediaImageProps) {
-  return (
+export function MediaImage({ item, priority = false, sizes, className, draggable, showCaption = true }: MediaImageProps) {
+  const image = (
     <Image
       src={item.src}
       alt={item.alt}
@@ -22,5 +24,20 @@ export function MediaImage({ item, priority = false, sizes, className, draggable
       className={className}
       draggable={draggable}
     />
+  );
+
+  if (!showCaption || !item.caption) return image;
+
+  return (
+    <span className="captioned-media">
+      {image}
+      <span
+        className="media-caption"
+        data-position={item.captionPosition ?? 'bottom-right'}
+        style={{ color: item.captionColor ?? '#ffffff' }}
+      >
+        {item.caption}
+      </span>
+    </span>
   );
 }

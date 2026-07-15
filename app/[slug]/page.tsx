@@ -4,14 +4,12 @@ import { notFound } from 'next/navigation';
 
 import { Gallery } from '@/components/gallery';
 import { PageIntro } from '@/components/page-intro';
-import { getPortfolioCategory, portfolioCategories } from '@/lib/portfolio';
+import { CmsEntry } from '@/components/cms/cms-entry';
+import { hasCmsSession, isCmsConfigured, isCmsRoute } from '@/lib/cms/auth';
+import { getPublicCategory } from '@/lib/cms/repository';
 import { site } from '@/lib/site-data';
 
-export const dynamicParams = false;
-
-export function generateStaticParams() {
-  return portfolioCategories.map((category) => ({ slug: category.slug }));
-}
+export const dynamic = 'force-dynamic';
 
 type CategoryParams = {
   slug: string;
@@ -20,7 +18,15 @@ type CategoryParams = {
 export async function generateMetadata({ params }: { params: Promise<CategoryParams> }): Promise<Metadata> {
   const { slug } = await params;
 
-  const category = getPortfolioCategory(slug);
+  if (isCmsRoute(slug)) {
+    return {
+      title: 'Content manager',
+      robots: { index: false, follow: false, noarchive: true },
+      referrer: 'no-referrer',
+    };
+  }
+
+  const category = await getPublicCategory(slug);
   if (!category) return {};
 
   return {
@@ -48,7 +54,12 @@ export async function generateMetadata({ params }: { params: Promise<CategoryPar
 export default async function CategoryPage({ params }: { params: Promise<CategoryParams> }) {
   const { slug } = await params;
 
-  const category = getPortfolioCategory(slug);
+  if (isCmsRoute(slug)) {
+    if (!isCmsConfigured()) notFound();
+    return <CmsEntry slug={slug} authenticated={await hasCmsSession()} />;
+  }
+
+  const category = await getPublicCategory(slug);
   if (!category) notFound();
   return (
     <section className="portfolio-page">

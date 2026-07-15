@@ -12,6 +12,9 @@ export type MediaItem = {
   type: 'image' | 'video';
   filename: string;
   durationSeconds?: number;
+  caption?: string;
+  captionPosition?: 'bottom-left' | 'bottom-right';
+  captionColor?: string;
 };
 
 type ManifestAsset = {

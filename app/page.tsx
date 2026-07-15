@@ -1,8 +1,9 @@
 import React from 'react';
 import { HomeCarousel } from '@/components/home-carousel';
-import { homeMedia } from '@/lib/portfolio';
+import { getHomeMedia } from '@/lib/cms/repository';
 
-export default function HomePage() {
+export default async function HomePage() {
+  const homeMedia = await getHomeMedia();
   return (
     <section className="portfolio-page home-portfolio">
       <div className="portfolio-heading">

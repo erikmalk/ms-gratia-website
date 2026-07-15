@@ -1,9 +1,10 @@
 import React from 'react';
 import { CategoryPreviewCard } from '@/components/category-preview-card';
 import { PageIntro } from '@/components/page-intro';
-import { portfolioCategories } from '@/lib/portfolio';
+import { getPublicCategories } from '@/lib/cms/repository';
 
-export default function WorkPage() {
+export default async function WorkPage() {
+  const publicCategories = await getPublicCategories();
   return (
     <>
       <PageIntro title="Work" />
@@ -11,7 +12,7 @@ export default function WorkPage() {
       <section className="section">
         <div className="container">
           <div className="preview-grid">
-            {portfolioCategories.map((category, index) => (
+            {publicCategories.map((category, index) => (
               <CategoryPreviewCard
                 key={category.slug}
                 href={`/${category.slug}`}
