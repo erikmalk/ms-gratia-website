@@ -65,8 +65,12 @@ video {
   letter-spacing: 0.02em;
   overflow-wrap: anywhere;
   pointer-events: none;
-  text-shadow: 0 1px 3px rgb(0 0 0 / 55%);
+  text-shadow: 0 1px 2px rgb(0 0 0 / 75%);
   white-space: pre-line;
+}
+
+.media-caption[data-shadow='none'] {
+  text-shadow: none;
 }
 
 .media-caption[data-position='bottom-left'] {

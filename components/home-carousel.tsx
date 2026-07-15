@@ -4,6 +4,7 @@ import React, { useCallback, useEffect, useLayoutEffect, useRef, useState } from
 
 import { MediaImage } from '@/components/media-image';
 import type { MediaItem } from '@/lib/site-data';
+import { isCaptionColorDark } from '@/lib/caption-color';
 
 const SLIDE_DURATION_MS = 2000;
 const SWIPE_DISTANCE_PX = 45;
@@ -83,6 +84,7 @@ export function HomeCarousel({ items }: { items: MediaItem[] }) {
   if (!items.length) return null;
 
   const currentItem = items[currentIndex];
+  const currentCaptionColor = currentItem.captionColor ?? '#ffffff';
   const goTo = (index: number) => setCurrentIndex(index);
   const handlePointerDown = (event: React.PointerEvent<HTMLDivElement>) => {
     if (!event.isPrimary || event.button !== 0) return;
@@ -190,9 +192,10 @@ export function HomeCarousel({ items }: { items: MediaItem[] }) {
           <span
             className="media-caption home-carousel-caption"
             data-position={currentItem.captionPosition ?? 'bottom-right'}
+            data-shadow={isCaptionColorDark(currentCaptionColor) ? 'none' : undefined}
             style={{
               bottom: mediaInset.bottom,
-              color: currentItem.captionColor ?? '#ffffff',
+              color: currentCaptionColor,
               left: currentItem.captionPosition === 'bottom-left' ? mediaInset.left : undefined,
               right: currentItem.captionPosition !== 'bottom-left' ? mediaInset.right : undefined,
             }}

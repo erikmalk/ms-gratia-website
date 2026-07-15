@@ -2,6 +2,7 @@ import Image from 'next/image';
 import React from 'react';
 
 import type { MediaItem } from '@/lib/site-data';
+import { isCaptionColorDark } from '@/lib/caption-color';
 
 type MediaImageProps = {
   item: MediaItem;
@@ -28,13 +29,16 @@ export function MediaImage({ item, priority = false, sizes, className, draggable
 
   if (!showCaption || !item.caption) return image;
 
+  const captionColor = item.captionColor ?? '#ffffff';
+
   return (
     <span className="captioned-media">
       {image}
       <span
         className="media-caption"
         data-position={item.captionPosition ?? 'bottom-right'}
-        style={{ color: item.captionColor ?? '#ffffff' }}
+        data-shadow={isCaptionColorDark(captionColor) ? 'none' : undefined}
+        style={{ color: captionColor }}
       >
         {item.caption}
       </span>
