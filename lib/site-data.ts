@@ -344,7 +344,7 @@ const pickMedia = (filenames: string[]) =>
 
 export const site = {
   name: 'MS Gratia',
-  title: 'MS Gratia — Makeup & Special Effects Artist',
+  title: 'Ms. Gratia - Hair and Makeup Artist',
   description:
     'Editorial portfolio for LA-based makeup and special effects artist Gratia, featuring beauty, creative, film, television, and prosthetic work.',
   url: process.env.NEXT_PUBLIC_SITE_URL ?? 'https://msgratia.vercel.app',
