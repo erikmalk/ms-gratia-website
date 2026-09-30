@@ -5,17 +5,17 @@
   "max_image_long_edge": 2500,
   "target_image_bytes": 1000000,
   "counts": {
-    "source_files": 299,
-    "unique_assets": 273,
+    "source_files": 300,
+    "unique_assets": 274,
     "duplicate_sources": 26,
     "failures": 0,
     "by_media_type": {
-      "image": 298,
+      "image": 299,
       "video": 1
     },
     "by_category": {
       "special-effects": 121,
-      "beauty": 94,
+      "beauty": 95,
       "creative": 67,
       "branding": 13,
       "video": 1,
@@ -24,6 +24,21 @@
     }
   },
   "assets": [
+    {
+      "sha256": "fcfd32882a4ca6cb7eb02c86c35abf74fad84ee9792e1c7a7625d1aba8533fdd",
+      "master_filename": "pandora-talisman-event-portrait.jpg",
+      "master_path": "assets/originals/pandora-talisman-event-portrait.jpg",
+      "derivative_filename": "pandora-talisman-event-portrait.webp",
+      "derivative_path": "public/media/pandora-talisman-event-portrait.webp",
+      "media_type": "image",
+      "category": "beauty",
+      "master_width": 714,
+      "master_height": 950,
+      "master_bytes": 129179,
+      "derivative_width": 714,
+      "derivative_height": 950,
+      "derivative_bytes": 51560
+    },
     {
       "sha256": "e76bfd1906537d9c5c51cff45dae702b691e2d213dcc19c881d8b7bf212af2f4",
       "master_filename": "old-age-sculpt-profile.jpg",
@@ -4122,6 +4137,23 @@
     }
   ],
   "sources": [
+    {
+      "original_download_name": "img_4k6wjcvt.jpg",
+      "original_download_path": "/Users/gratia/Library/Application Support/LocalHoist/user_images/e430bc1f-b819-4fb2-97f2-9a915095bf3f/original.jpg",
+      "sha256": "fcfd32882a4ca6cb7eb02c86c35abf74fad84ee9792e1c7a7625d1aba8533fdd",
+      "master_filename": "pandora-talisman-event-portrait.jpg",
+      "master_path": "assets/originals/pandora-talisman-event-portrait.jpg",
+      "derivative_filename": "pandora-talisman-event-portrait.webp",
+      "derivative_path": "public/media/pandora-talisman-event-portrait.webp",
+      "media_type": "image",
+      "category": "beauty",
+      "master_width": 714,
+      "master_height": 950,
+      "master_bytes": 129179,
+      "derivative_width": 714,
+      "derivative_height": 950,
+      "derivative_bytes": 51560
+    },
     {
       "original_download_name": "010138-old-age-sculpt-2432.jpg",
       "original_download_path": "/Users/gratia/Downloads/010138-old-age-sculpt-2432.jpg",
