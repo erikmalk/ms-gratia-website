@@ -5,17 +5,17 @@
   "max_image_long_edge": 2500,
   "target_image_bytes": 1000000,
   "counts": {
-    "source_files": 300,
-    "unique_assets": 274,
+    "source_files": 301,
+    "unique_assets": 275,
     "duplicate_sources": 26,
     "failures": 0,
     "by_media_type": {
-      "image": 299,
+      "image": 300,
       "video": 1
     },
     "by_category": {
       "special-effects": 121,
-      "beauty": 95,
+      "beauty": 96,
       "creative": 67,
       "branding": 13,
       "video": 1,
@@ -24,6 +24,21 @@
     }
   },
   "assets": [
+    {
+      "sha256": "891d38c665c380ac47994852f97b01d6bb4c4ac1f8fec65bc1654a3a87121519",
+      "master_filename": "golden-light-beauty-portrait.jpg",
+      "master_path": "assets/originals/golden-light-beauty-portrait.jpg",
+      "derivative_filename": "golden-light-beauty-portrait.webp",
+      "derivative_path": "public/media/golden-light-beauty-portrait.webp",
+      "media_type": "image",
+      "category": "beauty",
+      "master_width": 1200,
+      "master_height": 1600,
+      "master_bytes": 175139,
+      "derivative_width": 1200,
+      "derivative_height": 1600,
+      "derivative_bytes": 99776
+    },
     {
       "sha256": "fcfd32882a4ca6cb7eb02c86c35abf74fad84ee9792e1c7a7625d1aba8533fdd",
       "master_filename": "pandora-talisman-event-portrait.jpg",
@@ -4137,6 +4152,23 @@
     }
   ],
   "sources": [
+    {
+      "original_download_name": "img_6hvu2585.jpg",
+      "original_download_path": "/Users/gratia/Library/Application Support/LocalHoist/user_images/f6085166-8b5d-4bfe-a379-2523b80fd191/original.jpg",
+      "sha256": "891d38c665c380ac47994852f97b01d6bb4c4ac1f8fec65bc1654a3a87121519",
+      "master_filename": "golden-light-beauty-portrait.jpg",
+      "master_path": "assets/originals/golden-light-beauty-portrait.jpg",
+      "derivative_filename": "golden-light-beauty-portrait.webp",
+      "derivative_path": "public/media/golden-light-beauty-portrait.webp",
+      "media_type": "image",
+      "category": "beauty",
+      "master_width": 1200,
+      "master_height": 1600,
+      "master_bytes": 175139,
+      "derivative_width": 1200,
+      "derivative_height": 1600,
+      "derivative_bytes": 99776
+    },
     {
       "original_download_name": "img_4k6wjcvt.jpg",
       "original_download_path": "/Users/gratia/Library/Application Support/LocalHoist/user_images/e430bc1f-b819-4fb2-97f2-9a915095bf3f/original.jpg",
