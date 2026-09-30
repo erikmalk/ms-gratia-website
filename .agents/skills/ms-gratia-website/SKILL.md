@@ -7,7 +7,7 @@ description: Maintain, test, and deploy the MS Gratia portfolio and its temporar
 
 ## Always establish the canonical project first
 
-- Durable repository: `https://github.com/erikmalk/ms-gratia-website`, local path `/Users/gratia/Projects/ms-gratia-website`.
+- Durable repository: `https://github.com/erikmalk/ms-gratia-website`; this machine's local path is `/Users/erikmalkemus/Projects/ms-gratia-web`.
 - Durable Vercel project: `local-hoist/ms-gratia-website`, project ID `prj_szBaYn2IdFZ5HTCTlOkhW9jRgezw`.
 - **Only canonical public URL:** `https://msgratia.vercel.app`.
 - All removable noncanonical named aliases were deleted on 2026-07-14. Vercel still creates immutable deployment URLs, but they must never be emitted in metadata or shared as canonical.
@@ -27,6 +27,8 @@ description: Maintain, test, and deploy the MS Gratia portfolio and its temporar
 
 ## Temporary CMS security and operation
 
+- This is a temporary, one-week solution so Gratia can edit the portfolio while traveling. Do not expand it into a permanent general-purpose CMS without a new security and storage design.
+- The CMS is technically internet-accessible but unlisted. Its initial access control is intentionally security-through-obscurity: the high-entropy UUID/random `CMS_ROUTE_SECRET` is the path. Treat the path as a secret and never commit or print its value in docs, logs, chat, or screenshots.
 - The URL is `/${CMS_ROUTE_SECRET}`. Never commit or print its value in docs/screenshots.
 - The route secret is exchanged for an eight-hour signed HttpOnly/SameSite=Strict session cookie. API reads/writes require that session and use DB-backed rate limits.
 - CMS pages are noindex/noarchive, excluded from sitemap, disallowed in robots, and use no-store/no-referrer headers.
@@ -35,7 +37,16 @@ description: Maintain, test, and deploy the MS Gratia portfolio and its temporar
 - Category slugs are stable after creation. Empty/archived ordinary categories are hidden publicly. The reserved, non-archivable Home category drives `/` and is omitted from navigation.
 - One CMS category order is shared by desktop navigation, mobile navigation, `/work`, and sitemap output.
 - Save writes asset/category archive state, category metadata, and all image orders transactionally.
-- Runtime uploads are intentionally unsupported: Vercel's filesystem is immutable. Add new optimized files and manifest data in the repository, or adopt object storage as a separately specified feature.
+- Runtime photo uploads are intentionally unsupported and must remain unsupported while this CMS is publicly reachable. Vercel's filesystem is immutable; the CMS only organizes existing catalog assets, adjusts per-category sort order, and creates/renames/orders/archives/restores categories.
+- New photos must go through the repository's asset import process, then be committed and deployed before the CMS can categorize them. Do not add public upload handling as a shortcut.
+
+## Asset import on this machine
+
+- The import process exists at `scripts/media/ingest_downloads.py`, but it has not been run or validated on this Mac yet.
+- The script currently hardcodes another machine's paths: `/Users/gratia/Downloads` and `/Users/gratia/Projects/ms-gratia-website`. Never run it unchanged here because this checkout is `/Users/erikmalkemus/Projects/ms-gratia-web`.
+- Before importing from this device, inspect and make the paths configurable or safely update them, confirm Python/Pillow and video-probing dependencies, and test with a small controlled batch.
+- Review generated originals, optimized WebP derivatives, names/categories, hashes, and `assets/media-manifest.json` before committing. Then run `npm run cms:setup` against the intended non-production database first, verify catalog totals, and confirm the new assets appear in the CMS.
+- Existing assets currently arrive from another device and require no local import work unless explicitly requested.
 
 ## Required environment variables
 
@@ -47,19 +58,22 @@ description: Maintain, test, and deploy the MS Gratia portfolio and its temporar
 - Never expose CMS/database secrets through `NEXT_PUBLIC_*`.
 - Use separate Neon databases/branches for preview and production; previews must not mutate production.
 
-## Workflow
+## Required change workflow
 
-1. `git status --short`; inspect the canonical project/link.
-2. `npm ci` (or `npm install` only when intentionally changing dependencies).
-3. If schema/catalog changed: set a local `DATABASE_URL`, run `npm run cms:setup`, and confirm its reported total matches the derived catalog count.
-4. Run `npm run lint && npm run typecheck && npm run build`.
-5. Browser-test the portfolio and CMS, including archive/restore and an ordering change; restore original state after the test.
-6. Deploy only to `local-hoist/ms-gratia-website`.
-7. Smoke-test `https://msgratia.vercel.app`, canonical tags, robots, sitemap, dynamic categories, Home, and secret CMS URL.
+GitHub CLI and Vercel CLI should already be authenticated on this machine. For every requested website change, complete the whole workflow rather than leaving it only local:
+
+1. Pull/fetch current `main`, then run `git status --short`; inspect the canonical Git remote and `.vercel/project.json` before editing.
+2. Implement the change. Use `npm ci` when dependencies need installation; use `npm install` only when intentionally changing dependencies.
+3. If schema/catalog changed: set a local `DATABASE_URL`, run `npm run cms:setup`, and confirm its reported total matches the derived catalog count. Do not assume the local media importer works until it has been adapted and tested as described above.
+4. Run available local checks: `npm run lint && npm run typecheck && npm run build`.
+5. Browser-test affected portfolio and CMS behavior when possible. For CMS archive/order tests, restore the original editorial state afterward.
+6. Commit the intended files to `main` and push to `https://github.com/erikmalk/ms-gratia-website`.
+7. Immediately deploy with the authenticated Vercel CLI only to `local-hoist/ms-gratia-website`; do not wait for a later request to deploy.
+8. Ensure the new deployment is live at the stable public alias `https://msgratia.vercel.app`, then smoke-test that URL plus affected routes. When relevant, verify canonical tags, robots, sitemap, dynamic categories, Home, and the secret CMS route without revealing its path.
 
 ## Vercel deployment
 
-Use authenticated Vercel CLI or the dashboard. A reliable CLI path is:
+Prefer the already-authenticated Vercel CLI. Confirm `vercel whoami`, the `local-hoist` scope, and `.vercel/project.json` before deployment. A reliable CLI path is:
 
 ```bash
 npx --yes vercel@55.0.0 pull --yes --environment=production
