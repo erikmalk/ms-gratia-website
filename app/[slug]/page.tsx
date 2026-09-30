@@ -29,6 +29,9 @@ export async function generateMetadata({ params }: { params: Promise<CategoryPar
   const category = await getPublicCategory(slug);
   if (!category) return {};
 
+  const [firstImage] = category.items;
+  if (!firstImage) return {};
+
   return {
     title: category.title,
     description: category.description,
@@ -36,17 +39,25 @@ export async function generateMetadata({ params }: { params: Promise<CategoryPar
       canonical: `/${category.slug}`,
     },
     openGraph: {
+      type: 'website',
       title: `${category.title} — ${site.name}`,
       description: category.description,
       url: `/${category.slug}`,
+      siteName: site.name,
       images: [
         {
-          url: category.cover.src,
-          width: category.cover.width,
-          height: category.cover.height,
-          alt: category.cover.alt,
+          url: firstImage.src,
+          width: firstImage.width,
+          height: firstImage.height,
+          alt: firstImage.alt,
         },
       ],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: `${category.title} — ${site.name}`,
+      description: category.description,
+      images: [firstImage.src],
     },
   };
 }
